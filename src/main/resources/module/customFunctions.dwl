@@ -1,0 +1,1 @@
+fun evenOdd(num) = if(mod(num,2)==0) "even" else "odd"

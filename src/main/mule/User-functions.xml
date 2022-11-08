@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="01da2364-fc8e-4bc5-baf5-0121554e5a30" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="User-functionsFlow" doc:id="dbb28d6c-b9a7-4d16-b201-8964b6782884" initialState="stopped">
+		<http:listener doc:name="Listener" doc:id="11a56e88-c0bc-4d4f-8e8b-b1f0152b9876" config-ref="HTTP_Listener_config" path="/even"/>
+		<ee:transform doc:name="Transform Message" doc:id="95f3d785-7ddf-4dba-8b38-10b2e3edbca8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+import * from module::customFunctions
+---
+evenOdd(attributes.headers.num)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="2fcd08e2-8d99-40ed-9b59-ed59c9fed317" message="#[payload]"/>
+	</flow>
+</mule>

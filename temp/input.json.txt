@@ -1,0 +1,30 @@
+{
+    "menu": {
+        "id": "101",
+        "value": "mule",
+        "training" : ".net",
+        "popup": {
+            "menuitem": [
+                {
+                    "value": "New",
+                    "onclick": "CreateNewDoc()"
+                },
+                {
+                    "value": "Open",
+                    "onclick": "OpenDoc()"
+                },
+                {
+                    "value": "Close",
+                    "onclick": "CloseDoc()"
+                }
+            ]
+        }
+    }
+}
+
+
+description: This method helps us to get the employee list
+     form the keyword account
+
+
+description: This method helps us to post the       employee list form the keyword account

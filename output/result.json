@@ -1,0 +1,4 @@
+[
+  "{\n  \"args\": {\n    \"header1\": \"\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Header1\": \"Open\", \n    \"Header2\": \"OpenDoc()\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"AHC/1.0\", \n    \"X-Amzn-Trace-Id\": \"Root=1-6350f9ec-43c4db097d86909576b5ccf8\", \n    \"X-Correlation-Id\": \"9192dff0-5049-11ed-82d2-3448ed5ec4e2\"\n  }, \n  \"origin\": \"103.10.249.191\", \n  \"url\": \"https://httpbin.org/get?header1\"\n}\n",
+  "{\n  \"args\": {\n    \"header1\": \"\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Header1\": \"Close\", \n    \"Header2\": \"CloseDoc()\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"AHC/1.0\", \n    \"X-Amzn-Trace-Id\": \"Root=1-6350f9ed-5eb8eaab1482a9996daad8c3\", \n    \"X-Correlation-Id\": \"9192dff0-5049-11ed-82d2-3448ed5ec4e2\"\n  }, \n  \"origin\": \"103.10.249.2, 165.225.106.49\", \n  \"url\": \"https://httpbin.org/get?header1\"\n}\n"
+]

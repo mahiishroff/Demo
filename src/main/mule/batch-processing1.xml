@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<flow name="batch-processing1Flow" doc:id="a1acf236-8129-45e7-bf3e-d8ae1884ec9c" initialState="stopped">
+		<file:listener doc:name="On New or Updated File" doc:id="74288c05-c744-4d96-9279-89dc3a5eb141" outputMimeType="application/csv" directory="D:\\detais">
+			<scheduling-strategy >
+				<fixed-frequency frequency="5000"/>
+			</scheduling-strategy>
+			<file:matcher filenamePattern="*.csv" />
+		</file:listener>
+		<ee:transform doc:name="Transform Message" doc:id="e3151430-734f-4e24-a331-28a731876c56" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload groupBy $.age pluck $
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<batch:job jobName="batch-processing1Batch_Job" doc:id="849730ce-1c4e-43a9-ab26-7cd2f9d5df40" maxFailedRecords="-1">
+			<batch:process-records >
+				<batch:step name="Batch_Step2" doc:id="efbef901-739a-4ba8-a6a8-bc837dce97c8" acceptPolicy="ALL">
+					<batch:aggregator doc:name="Batch Aggregator" doc:id="5f64d179-0c24-4c81-9ec1-51cb35750ae6" size="2">
+						<logger level="INFO" doc:name="Logger" doc:id="7aaa6f47-1ea4-448e-a46e-2d163d067387" message="#[payload]"/>
+					</batch:aggregator>
+				</batch:step>
+			</batch:process-records>
+			<batch:on-complete >
+				<logger level="INFO" doc:name="Logger" doc:id="d80e81ff-a695-4dd0-9800-8b2447ae645e" message="#[payload]"/>
+			</batch:on-complete>
+		</batch:job>
+	</flow>
+</mule>

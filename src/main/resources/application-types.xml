@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="details" format="csv">
+      <types:shape format="weave" example="examples/input.csv"><![CDATA[%dw 2.0
+
+type details = Array<{|  "sl.no": Number,   name: String,   age: Number|}> {"isQuotedString": "false",
+"header": "true",
+"headerLineNumber": "0"}
+
+]]></types:shape>
+      <types:properties>
+        <types:property name="headerLineNumber" value="0"/>
+        <types:property name="header" value="true"/>
+        <types:property name="isQuotedString" value="false"/>
+      </types:properties>
+    </types:type>
+    <types:type name="details2" format="csv">
+      <types:shape format="weave" example="examples/input-1.csv"><![CDATA[%dw 2.0
+
+type details2 = Array<{|  "sl.no": Number,   name: String,   age: Number|}> {"isQuotedString": "false",
+"header": "true",
+"headerLineNumber": "0"}
+
+]]></types:shape>
+      <types:properties>
+        <types:property name="headerLineNumber" value="0"/>
+        <types:property name="header" value="true"/>
+        <types:property name="isQuotedString" value="false"/>
+      </types:properties>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#74288c05-c744-4d96-9279-89dc3a5eb141">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="details2"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
